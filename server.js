@@ -8,7 +8,7 @@ const port = 3001;
 app.use(express.json());
 app.use(cors());
 
-const openaiApiKey = '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';
+const openaiApiKey = 'open-ai-api-key-here';
 
 app.post('/api/evaluate', async (req, res) => {
   const { jobDescription, resume } = req.body;
