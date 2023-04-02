@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Evaluator</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        textarea {
+            width: 100%;
+            height: 200px;
+        }
+        .output {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+    <script>
+        async function evaluateProfile() {
+  const jobDescription = document.getElementById('jobDescription').value;
+  const resume = document.getElementById('resume').value;
+
+  try {
+    const response = await axios.post('http://localhost:3001/api/evaluate', {
+      jobDescription,
+      resume,
+    });
+
+    const evaluation = response.data.evaluation;
+    document.getElementById('output').textContent = evaluation;
+  } catch (error) {
+    console.error(error);
+    alert('There was an error processing the request.');
+  }
+}
+
+    </script>
+</head>
+<body>
+    <h1>Profile Evaluator</h1>
+    <form>
+        <label for="jobDescription">Job Description:</label><br>
+        <textarea id="jobDescription" name="jobDescription" required></textarea><br><br>
+        <label for="resume">Resume:</label><br>
+        <textarea id="resume" name="resume" required></textarea><br><br>
+        <button type="button" onclick="evaluateProfile()">Evaluate Profile</button>
+    </form>
+    <div class="output">
+        <p><strong>Evaluation and suggestions:</strong> <span id="output"></span></p>
+    </div>
+</body>
+</html>
