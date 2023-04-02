@@ -1,10 +1,4 @@
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI-Powered Resume Evaluator & Suggester</title>
-</head>
-<body>
     <h1>AI-Powered Resume Evaluator & Suggester</h1>
     <p>Get started today by uploading your resume and specifying the job profile you're targeting. Let our AI-Powered Resume Evaluator & Suggester give you the edge you need to succeed in your job search!</p>
 
