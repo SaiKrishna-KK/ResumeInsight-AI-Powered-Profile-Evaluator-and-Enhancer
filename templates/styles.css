@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;500&display=swap');
+*{
+    box-sizing: border-box;
+    font-family: 'Outfit', sans-serif;
+    
+}
+.navbar_style{
+    background-color: #8BB4F4 !important;
+}
+.logo{
+    width: 100px;
+    margin-left: 20px;
+}
+h1{
+    font-weight: bold;
+}
+.nav_el{
+    
+    color: white !important;
+    border-radius: 10px;
+    margin-right: 10px;
+    background-color: #F87D18;
+}
+  .inputs{
+    width: 100%;
+    padding-top: 50px;
+    justify-content: center;
+  }
+  .inputs label{
+    
+    font-size: 2rem;
+  }
+  #my-form{
+    background-color:#003566;
+  }
+ 
+  .nav_buttons{
+    display: flex;
+    justify-content: right;
+  }
+  .inputs text{
+    width: 400px;
+    height: 450px;
+    margin: 20px;
+    align-items: start;
+    background-color: aliceblue;
+  }
+  .inputs input:active{
+    outline: none;
+  }
+  .submit{
+    border: none;
+    padding: 10px;
+    background-color: rgb(0, 138, 180);;
+    color: black !important;
+    border-radius: 5px;
+   background-color:#ff9946 ;
+    margin-top: 30px;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.441);
+  }
+  .job label, .resume label{
+    font-weight: 500;
+    color: white;
+  }
+  .wave{
+    position: relative;
+    top: 30px;
+    
+  }
+  
+  #resume, #jobDescription{
+    width: 400px;
+    height: 400px; 
+  }
+  .job, .resume{
+    width: 400px;
+    margin: 0 30px;
+  }
+  .property{
+    background-color: rgb(165, 218, 251);
+    padding: 30px;
+    border-radius: 10px;
+  }
+  #my-form{
+    padding-bottom: 50px;
+  }
+
+  .item{
+    width: 350px;
+  }
+  .suggest{
+    background-color: rgba(255, 255, 255, 0.455);
+    border-radius: 10px;
+    padding: 10px;
+  }
+  .left, .right, .car_control{
+    background-color: white !important;
+    
+  }
+  .control{
+    width: 400px !important;
+  }
+  .control a span{
+    color: black;
+    margin: auto;
+    background-color: white;
+  }
+  .control a{
+    background-color: white;
+  }
+  .carousel-control {
+    background: none;
+    border: none;
+  }
+  
+  .carousel-control .glyphicon {
+    color: black;
+  }
+  .carousel-control .right{
+    background-color: none !important;
+    background-image: none !important;
+  }
+  .carousel-control .left{
+    margin-left: 100px;
+    background-color: none !important;
+    background-image: none !important;
+  }
+  .output-head{
+    margin: auto;
+    padding: 50px 0;
+  }
+  #output-content{
+    font-size: 0.6rem !important;
+    text-align: center;
+  }

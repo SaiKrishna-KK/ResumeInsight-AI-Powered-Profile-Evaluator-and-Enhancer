@@ -1,37 +1,388 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Profile Evaluator</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css"
+      integrity="sha512-bqVWKs/Vs9JDrx4+4zw3e3ehNwZQLJIl82S+yoT2QhqNxo95yPC2fzQV6Ud+lfUxBhn7YpC6HmV7bKg6mLcVdw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-</head>
-<body>
-    <h1>Profile Evaluator</h1>
-    <textarea id="jobDescription" placeholder="Enter job description here" rows="10" cols="50"></textarea>
-    <textarea id="resume" placeholder="Enter your resume here" rows="10" cols="50"></textarea>
-    <button onclick="evaluateProfile()">Evaluate Profile</button>
-    <h2>Output:</h2>
-    <pre id="output"></pre>
+    <style>
+      textarea {
+        width: 100%;
+        height: 200px;
+      }
+      .output {
+        margin-top: 20px;
+        font-size: 18px;
+      }
+    </style>
 
+  </head>
+  <body>
+    <div class="scroll-animation">
+      <nav
+        class="navbar navbar-expand-lg navbar-light bg-light mb-2 navbar_style"
+      >
+        <a class="navbar-brand" href="#"><img src="logo.png" class="logo" /></a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <ul class="navbar-nav nav_buttons ml-auto mr-2">
+          <li class="nav-item">
+            <a class="nav-link nav_el" href="#">Contact</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav_el" href="#">About</a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Hero image and description -->
+      <div class="hero-image d-flex">
+        <div class="image m-3">
+          <lottie-player
+            src="https://assets2.lottiefiles.com/packages/lf20_5i9kyklo.json"
+            background="transparent"
+            speed="1"
+            style="width: 500px; height: 300px"
+            loop
+            autoplay
+          ></lottie-player>
+        </div>
+        <div class="hero-text my-auto p-5">
+          <h1 class="pb-3">Resume Insight</h1>
+          <p class="desc">
+            Get started today by uploading your resume and specifying the job
+            profile you're targeting. Let our AI-Powered Resume Evaluator &
+            Suggester give you the edge you need to succeed in your job search!
+          </p>
+        </div>
+      </div>
+      <lottie-player
+        src="https://assets9.lottiefiles.com/private_files/lf30_PaH1bn.json"
+        class="lottie-scroll mx-auto"
+        background="transparent"
+        speed="1"
+        style="width: 80px; height: 80px"
+        loop
+        autoplay
+      ></lottie-player>
+      <div class="text-center">Scroll down</div>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="wave"
+        viewBox="0 0 1440 320"
+      >
+        <path
+          fill="#003566"
+          fill-opacity="1"
+          d="M0,224L48,234.7C96,245,192,267,288,234.7C384,203,480,117,576,101.3C672,85,768,139,864,160C960,181,1056,171,1152,144C1248,117,1344,75,1392,53.3L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+        ></path>
+      </svg>
+      <form class="inputs d-flex flex-column" id="my-form">
+        <div class="inputs d-flex">
+          <div class="job">
+            <label for="jobDescription">Job Description:</label>
+            <textarea
+              id="jobDescription"
+              name="jobDescription"
+              required
+            ></textarea
+            ><br />
+          </div>
+          <div class="resume">
+            <label for="resume">Resume:</label><br />
+            <textarea id="resume" name="resume" required></textarea>
+          </div>
+        </div>
+        <button
+          type="button"
+          class="mx-auto submit"
+          onclick="evaluateProfile()"
+        >
+          Evaluate Profile
+        </button>
+      </form>
+      <br />
+      <br />
+      <h1 class="profile text-center">Profile Evaluation</h1>
+      <div id="myCarousel" class="carousel m-5 mx-auto" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+          <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+          <li data-target="#myCarousel" data-slide-to="1"></li>
+          <li data-target="#myCarousel" data-slide-to="2"></li>
+          <li data-target="#myCarousel" data-slide-to="3"></li>
+          <li data-target="#myCarousel" data-slide-to="4"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+          <div class="item active mx-auto">
+            <div class="form-group property">
+              <div class="ranges d-flex">
+                <label for="education" class="title">Education:</label>
+                <progress
+                  class="form-control-range"
+                  id="education"
+                  min="1"
+                  max="10"
+                  value="3"
+                ></progress>
+              </div>
+              <p class="my-3">
+                <strong>Assessment:</strong>
+                <span id="education-assessment"></span>
+              </p>
+              <div class="suggest">
+                <p><strong>Suggestions:</strong></p>
+                <ul id="education-suggestions"></ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="item mx-auto">
+            <div class="form-group property">
+              <div class="ranges d-flex">
+                <label for="work-experience" class="title"
+                  >Work Experience:</label
+                >
+                <progress
+                  class="form-control-range"
+                  id="work-experience"
+                  min="1"
+                  max="10"
+                  value="9"
+                ></progress>
+              </div>
+              <p class="my-3">
+                <strong>Assessment:</strong>
+                <span id="work-experience-assessment"></span>
+              </p>
+              <div class="suggest">
+                <p><strong>Suggestions:</strong></p>
+                <ul id="work-experience-suggestions"></ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="item mx-auto">
+            <div class="form-group property">
+              <div class="ranges d-flex">
+                <label for="skills" class="title">Skills:</label>
+                <progress
+                  class="form-control-range"
+                  id="skills"
+                  min="1"
+                  max="10"
+                  value="9"
+                ></progress>
+              </div>
+              <p class="my-3">
+                <strong>Assessment:</strong>
+                <span id="skills-assessment"></span>
+              </p>
+              <div class="suggest">
+                <p><strong>Suggestions:</strong></p>
+                <ul id="skills-suggestions"></ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="item mx-auto">
+            <div class="form-group property">
+              <div class="ranges d-flex">
+                <label for="achievements" class="title">Achievements:</label>
+                <progress
+                  class="form-control-range"
+                  id="achievements"
+                  min="1"
+                  max="10"
+                  value="9"
+                ></progress>
+              </div>
+              <p class="my-3">
+                <strong>Assessment:</strong>
+                <span id="achievements-assessment"></span>
+              </p>
+              <div class="suggest">
+                <p><strong>Suggestions:</strong></p>
+                <ul id="achievements-suggestions"></ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="item mx-auto">
+            <div class="form-group property">
+              <div class="ranges d-flex">
+                <label for="personal-qualities" class="title"
+                  >Personal Qualities:</label
+                >
+                <progress
+                  class="form-control-range"
+                  id="personal-qualities"
+                  min="1"
+                  max="10"
+                  value="9"
+                ></progress>
+              </div>
+              <p class="my-3">
+                <strong>Assessment:</strong>
+                <span id="personal-qualities-assessment"></span>
+              </p>
+              <div class="suggest">
+                <p><strong>Suggestions:</strong></p>
+                <ul id="personal-qualities-suggestions"></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-control bg-light control">
+          <a
+            class="left carousel-control car_control mx-auto"
+            href="#myCarousel"
+            data-slide="prev"
+          >
+            <span class="glyphicon glyphicon-chevron-left"></span>
+          </a>
+          <a
+            class="right carousel-control car_control"
+            href="#myCarousel"
+            data-slide="next"
+          >
+            <span class="glyphicon glyphicon-chevron-right"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="output">
+      <h3 class="output-head text-center">
+        <strong>Evaluation and suggestions:</strong>
+      </h3>
+      <span id="output_content"></span>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha384-0uaPj/RDMMGtuLXRtT0KA8ZlHgT7O9angu3ltUVQP44MkN7c0cMHDUxh82HIvaho"
+      crossorigin="anonymous"
+    ></script>
     <script>
-        async function evaluateProfile() {
-            const jobDescription = document.getElementById('jobDescription').value;
-            const resume = document.getElementById('resume').value;
+      async function evaluateProfile() {
+        const jobDescription = document.getElementById("jobDescription").value;
+        const resume = document.getElementById("resume").value;
 
-            try {
-                const response = await axios.post('/api/evaluate', {
-                    jobDescription,
-                    resume
-                });
+        try {
+          const response = await axios.post("/api/evaluate", {
+            jobDescription,
+            resume,
+          });
 
-                const evaluation = response.data.evaluation;
-                document.getElementById('output').textContent = evaluation;
-            } catch (error) {
-                console.error(error);
-                alert('There was an error processing the request.');
-            }
+          const data = response.data.evaluation;
+          // document.getElementById("output").textContent = evaluation;
+
+
+        // Update the Education section
+        document.getElementById("education").value = data.education.score;
+        document.getElementById("education-assessment").textContent =
+          data.education.assessment;
+        document.getElementById("education-suggestions").innerHTML = "";
+        for (let suggestion of data.education.suggestions) {
+          document.getElementById(
+            "education-suggestions"
+          ).innerHTML += `<li>${suggestion}</li>`;
+        }
+
+        // Update the Work Experience section
+        document.getElementById("work-experience").value =
+          data.work_experience.score;
+        document.getElementById("work-experience-assessment").textContent =
+          data.work_experience.assessment;
+        document.getElementById("work-experience-suggestions").innerHTML = "";
+        for (let suggestion of data.work_experience.suggestions) {
+          document.getElementById(
+            "work-experience-suggestions"
+          ).innerHTML += `<li>${suggestion}</li>`;
+        }
+
+        // Update the Skills section
+        document.getElementById("skills").value = data.skills.score;
+        document.getElementById("skills-assessment").textContent =
+          data.skills.assessment;
+        document.getElementById("skills-suggestions").innerHTML = "";
+        for (let suggestion of data.skills.suggestions) {
+          document.getElementById(
+            "skills-suggestions"
+          ).innerHTML += `<li>${suggestion}</li>`;
+        }
+
+        // Update the Achievements section
+        document.getElementById("achievements").value = data.achievements.score;
+        document.getElementById("achievements-assessment").textContent =
+          data.achievements.assessment;
+        document.getElementById("achievements-suggestions").innerHTML = "";
+        for (let suggestion of data.achievements.suggestions) {
+          document.getElementById(
+            "achievements-suggestions"
+          ).innerHTML += `<li>${suggestion}</li>`;
+        }
+
+        // Update the Personal Qualities section
+        document.getElementById("personal-qualities").value =
+          data.personal_qualities.score;
+        document.getElementById("personal-qualities-assessment").textContent =
+          data.personal_qualities.assessment;
+        document.getElementById("personal-qualities-suggestions").innerHTML = "";
+        for (let suggestion of data.personal_qualities.suggestions) {
+          document.getElementById(
+            "personal-qualities-suggestions"
+          ).innerHTML += `<li>${suggestion}</li>`;
+        }
+        document.getElementById("output_content").textContent = JSON.stringify(
+          data.extra_suggestions
+        );
+        } catch (error) {
+            console.error(error);
+            alert("There was an error processing the request.");
+          }
         }
     </script>
-</body>
+  </body>
 </html>
